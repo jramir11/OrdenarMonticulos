@@ -27,28 +27,27 @@ ordenarHeap([3, 8, 10, 11, 9, 20, 14]); // deberia retornar 3,8,9,10,11,14,20
 
 
 
-//salida 2 : crear un array nuevo usando remove y hapify como funciones
+//salida 1 : crear un array nuevo usando ordenar y hapify como funciones en un array nuevo
 function nuevoHeap (heap)
 {
     let nuevoHeap =[];
+    let nuevoHeapFinal=[];
 
-    nuevoHeap = insertarNuevoHeap(heap);
+    nuevoHeap = hapifyHeap(heap);  //convierte en monticulo
 
-    console.log(nuevoHeap);
+    nuevoHeapFinal = insertarNuevoHeap(nuevoHeap);  //ordena y crea NuevoHeapFinal
 
-    eliminarHeap(heap);
-
+    console.log(nuevoHeapFinal);
 }
 
+
+//insertar
 function insertarNuevoHeap(element){
     let indice_hijo = 0;
     let temp=0;
-
     let nuevoHeap=[];
-    nuevoHeap.push(undefined);
 
     for(let i=0;i<element.length;i++){
-
         //insertando el nuevo valor en el array heap
         nuevoHeap.push(element[i]);
         //indice del nuevo elemento
@@ -68,12 +67,33 @@ function insertarNuevoHeap(element){
     return nuevoHeap;
 }
 
-function eliminarHeap(element) {
-    while (element.length > 0) {
-        element.pop();
-    }
 
-    console.log(element);
+//hapify crea un monticulo con el arreglo inicial
+function hapifyHeap(element) {
+    let indice_hijo = 0;
+    let temp=0;
+    let nuevoHeap=[];
+    nuevoHeap.push(undefined);
+
+    for(let i=0;i<element.length;i++){
+
+        //insertando el nuevo valor en el array heap
+        nuevoHeap.push(element[i]);
+        //indice del nuevo elemento
+        indice_hijo = nuevoHeap.length - 1;
+        indice_padre = Math.trunc(indice_hijo / 2);
+
+        //compara padre e hijo e invierte valores si padre es mayor
+        while (nuevoHeap[indice_padre] > nuevoHeap[indice_hijo]){
+            temp = nuevoHeap[indice_hijo];
+            nuevoHeap[indice_hijo] = nuevoHeap[indice_padre];
+            nuevoHeap[indice_padre] = temp;
+
+            indice_hijo=indice_padre;
+            indice_padre = Math.trunc(indice_hijo / 2);
+        }
+    }
+    return nuevoHeap;
 }
 
 nuevoHeap([3, 8, 10, 11, 9, 20, 14]); // deberia retornar 3,8,9,10,11,14,20 

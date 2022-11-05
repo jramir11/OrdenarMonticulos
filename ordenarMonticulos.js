@@ -5,7 +5,7 @@ function nuevoHeap (heap)
     let nuevoHeapFinal=[];
 
     nuevoHeap = heapify(heap);  //convierte en monticulo
-
+console.log(nuevoHeap);
     nuevoHeapFinal = insertarNuevoHeap(nuevoHeap);  //ordena y crea NuevoHeapFinal
 
     console.log(nuevoHeapFinal);
